@@ -1,74 +1,116 @@
 class Snake{
 
-	int xpos;
-	int ypos;
-	String direction;
-	int snakesize;
-	color snakecolor; //color is a "data type" in Processing
+	TailOrb head;
+	TailOrb tailtip;
+	int snakelength;
+	color snakecolor;
+	int segmentsize;
 
-	Snake(int initialx, int initialy, color initialcolor, int intitialsize, String initialdirection){ //CONSTRUCTOR
-		xpos=initialx;//initial location
-		ypos=initialy;
+	Snake(int initialx, int initialy, color initialcolor, int initialsize, String initialdirection){ //CONSTRUCTOR
+
 		snakecolor = initialcolor;
-		snakesize = intitialsize;
-		direction = initialdirection;
-		
+		segmentsize = initialsize;
+		head = new TailOrb(initialx, initialy, snakecolor, segmentsize, initialdirection); // adds the head to the snake
+		tailtip = head;
+
+		snakelength = 1;
+
+		addregular();
+		addregular();
+	
 	}
 
-	// ACTUAL MOVEMENT
-	void move() {
-		if (direction == "up") {
-			if (ypos > 0 + snakesize/2){ //0 MEANS THE TOP EDGE IN THIS CASE. checking if the center of the snake is near top line/edge of screen.
-				ypos = ypos-snakesize;
-			}
-			else println("DEAD");
+	void add(TailOrb new_tailorb_segment){
 
-		}
-		if (direction == "down") {
-			if (ypos < height-snakesize/2){ 
-				ypos = ypos+snakesize;
-			}
-			else println("DEAD");
-			
-		}
-		if (direction == "left") {
-			if (xpos > 0+snakesize/2){
-				xpos = xpos-snakesize;
-			}
-			else println("DEAD");
-		}
-		if (direction == "right") {
-			if (xpos < width-snakesize/2){
-				xpos = xpos+snakesize;
-			}
-			else println("DEAD");
-		}
-		
+		// attach the new node to the edn of the list
+		new_tailorb_segment.previous = tailtip;
+		tailtip.next = new_tailorb_segment;
+		tailtip = tailtip.next; //THE ORDER HERE IS RATHER IMPORTANT FOR THE ABOVE THREE LINES.
+		snakelength++;
+
+
 	}
+	void addregular(){
+		int newx = 0;
+		int newy = 0;
 
+		if(tailtip.direction == "up"){
+			newx = tailtip.xpos;
+			newy = tailtip.ypos + segmentsize;
+
+		}
+
+		else if (tailtip.direction == "down"){
+			newx = tailtip.xpos;
+			newy = tailtip.ypos - segmentsize;
+
+		}
+
+		else if (tailtip.direction == "left"){
+			newx = tailtip.xpos + segmentsize;
+			newy = tailtip.ypos;
+
+		}
+
+		else if (tailtip.direction == "right"){
+			newx = tailtip.xpos - segmentsize;
+			newy = tailtip.ypos;
+
+		}
+
+
+		TailOrb regular = new TailOrb(newx, newy, color(snakecolor, 170), segmentsize, tailtip.direction);
+
+		regular.previous = tailtip;
+		tailtip.next = regular;
+		tailtip = tailtip.next; //THE ORDER HERE IS RATHER IMPORTANT FOR THE ABOVE THREE LINES.
+
+		snakelength++; //MONITORS SNAKELENGTH FOR THE SCORE
+	}
 	// CHANGE DIRECTIONS
-
 	void moveUp() {
-		direction = "up";
+		head.direction = "up";
+	
 	}
 
 	void moveDown() {
-		direction = "down";
+		head.direction = "down";
+	
 	}
 
 	void moveLeft() {
-		direction = "left";
+		head.direction = "left";
+	
 	}
 
 	void moveRight() {
-		direction = "right";
+		head.direction = "right";
+	
 	}
+
+
+
+	void move(){
+		TailOrb t = head; 
+		while(t != null) {
+			// do things to move this particular tailorb
+			t.move();
+			t = t.next;
+		}
+	
+	}
+	
 
 	void draw(){
-		rectMode(CENTER);
-		fill(snakecolor);
-		noStroke();
-		rect(xpos,ypos,snakesize,snakesize);
+		TailOrb t = head; // STARTING OUT.
+		while(t != null) { // LOOKIN AT IT, IS THERE SOMEONE NEW?! (IS THERE SOMETHING THERE?)
 
+			t.draw(); // DRAWING IT
+			t = t.next; // NOW MOVING ON
+
+	
+		}
+	
 	}
+
 }
