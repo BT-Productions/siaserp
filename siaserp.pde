@@ -13,10 +13,9 @@ int mins = sec / 60;
 int display_minutes = mins % 60;
 int hours = mins / 60;
 int display_hours = hours;
+
 String elapsedTime = display_hours + ":" + display_minutes + ":" + display_seconds + "." + display_millis;
-
 String score = "";
-
 
 void setup(){
 
@@ -24,7 +23,6 @@ void setup(){
 
 	int s1xpos = ((tileSize * (gridSize - gridSize % 4)/4) - tileSize/2);
 	int s1ypos = ((height/2 - (height/2)%tileSize) + tileSize/2);
-
 	int s2xpos = ((tileSize * 3 * (gridSize - gridSize % 4)/4) + tileSize/2);
 	int s2ypos = ((height/2 + (height/2)%tileSize) - tileSize/2);
 
@@ -36,12 +34,14 @@ void setup(){
 }
 
 void draw(){
+
 	background(20);
 
 	if (frameCount%60 == 0){ //every 60 frames, do this:
 		snake1.move();
 		snake2.move();
 	}
+
 	snake1.draw();
 	snake2.draw();
 
@@ -54,51 +54,39 @@ void draw(){
     hours = mins / 60;
     display_hours = hours;
 	elapsedTime = display_hours + ":" + display_minutes + ":" + display_seconds + "." + display_millis;
+    score = "" + sec/2; // <-- THIS converts ints to strings. Showing a point every two seconds (.5 of a point every second).
 
-    textSize(12);
+    textSize(14);
     fill(255);
     textAlign(CENTER);
     text(elapsedTime, width/2, height/4);
-
-    score = "" + sec/2; // <-- THIS converts ints to strings. Showing a point every two seconds (.5 of a point every second).
-
-
-    text(score, width/2, height/4-12);
-
+    text(score, width/2, height/4-14);
 
 }
 
 void keyPressed(){
+
 	//snake 2
 	if (key==CODED){
 
 		if (keyCode==UP){
 			snake2.moveUp();
-		}
-		else if (keyCode==DOWN){
+		} else if (keyCode==DOWN){
 			snake2.moveDown();
-		}
-		else if (keyCode==LEFT){
+		} else if (keyCode==LEFT){
 			snake2.moveLeft();
-		}
-		else if (keyCode==RIGHT){
+		} else if (keyCode==RIGHT){
 			snake2.moveRight();
 		}
 	//snake 1
-	} 
-	else if (key=='w'){
+	} else if (key=='w'){
 		snake1.moveUp();
-	}
-	else if (key=='s'){
+	} else if (key=='s'){
 		snake1.moveDown();
-	}
-	else if (key=='a'){
+	} else if (key=='a'){
 		snake1.moveLeft();
-	}
-	else if (key=='d'){
+	} else if (key=='d'){
 		snake1.moveRight();
 	}
-
-
 
 }

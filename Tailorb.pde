@@ -1,8 +1,5 @@
 class TailOrb{
 	
-	TailOrb next;
-	TailOrb previous; // this will be a doubly-linked lists
-
 	int xpos;
 	int ypos;
 	String direction;
@@ -15,8 +12,6 @@ class TailOrb{
 		segmentcolor = initialcolor;
 		segmentsize = intitialsize;
 		direction = initialdirection;
-		next = null;
-		previous = null;
 	}
 
 	// ACTUAL MOVEMENT
@@ -26,32 +21,36 @@ class TailOrb{
 				ypos = ypos-segmentsize;
 			}
 			else println("DEAD");
-
 		}
+
 		if (direction == "down") {
 			if (ypos < height-segmentsize/2){ 
 				ypos = ypos+segmentsize;
 			}
 			else println("DEAD");
-			
 		}
+
 		if (direction == "left") {
 			if (xpos > 0+segmentsize/2){
 				xpos = xpos-segmentsize;
 			}
 			else println("DEAD");
 		}
+
 		if (direction == "right") {
 			if (xpos < width-segmentsize/2){
 				xpos = xpos+segmentsize;
 			}
 			else println("DEAD");
 		}
+	}
 
-		if (previous != null){
-			direction = previous.direction;
-		}
-		
+	void updateDirection(String newDirection) {
+		direction = newDirection;		
+	}
+
+	String getDirection() {
+		return direction;
 	}
 
 	void draw(){
