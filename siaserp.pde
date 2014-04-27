@@ -5,6 +5,8 @@ Snake snake2;
 int tileSize = 20; // the pixel size of tiles
 int gridSize = 41; // how many tiles on each axis of the grid
 
+int grid[][];
+
 int mil = millis(); // raw elapsed time
 int display_millis = mil % 1000; // cut out anything greater than 1 second... the remainder are displayed milliseconds
 int sec = mil / 1000;				// convert raw elapsed time to seconds, getting rid of any remainder
@@ -21,6 +23,13 @@ String score = "";
 void setup(){
 
 	size(gridSize*tileSize,gridSize*tileSize);
+	grid = new int [gridSize][gridSize];
+
+	for (int i = 0; i < gridSize; i++){
+		for (int j = 0; j < gridSize; j++){
+			grid[i][j] = 0;
+		}
+	}
 
 	int s1xpos = ((tileSize * (gridSize - gridSize % 4)/4) - tileSize/2);
 	int s1ypos = ((height/2 - (height/2)%tileSize) + tileSize/2);
@@ -28,8 +37,8 @@ void setup(){
 	int s2xpos = ((tileSize * 3 * (gridSize - gridSize % 4)/4) + tileSize/2);
 	int s2ypos = ((height/2 + (height/2)%tileSize) - tileSize/2);
 
-	snake1 = new Snake(s1xpos, s1ypos, color(0,0,200), tileSize, "right"); //INITIALIZING 
-	snake2 = new Snake(s2xpos, s2ypos, color(0,200,0), tileSize, "left");
+	snake1 = new Snake(s1xpos, s1ypos, color(0,0,200), tileSize, "right", grid); //INITIALIZING 
+	snake2 = new Snake(s2xpos, s2ypos, color(0,200,0), tileSize, "left", grid);
 
 	frameRate(60);
 
@@ -39,8 +48,8 @@ void draw(){
 	background(20);
 
 	if (frameCount%60 == 0){ //every 60 frames, do this:
-		snake1.move();
-		snake2.move();
+		snake1.move(grid);
+		snake2.move(grid);
 	}
 	snake1.draw();
 	snake2.draw();
@@ -65,40 +74,56 @@ void draw(){
 
     text(score, width/2, height/4-12);
 
+    for (int i = 0; i < gridSize; i++){
+		for (int j = 0; j < gridSize; j++){
+			if (grid[i][j] > 1) println("SUPERDEAD");
 
+		}
+	}
 }
 
 void keyPressed(){
 	//snake 2
 	if (key==CODED){
+		switch(keyCode) {
+			case UP :
+			snake2.moveInput('u');
+			break;
+			case DOWN :
+			snake2.moveInput('d');
+			break;
+			case LEFT :
+			snake2.moveInput('l');
+			break;
+			case RIGHT :
+			snake2.moveInput('r');
+			break;
 
-		if (keyCode==UP){
-			snake2.moveUp();
+			default :
+			break;
+
 		}
-		else if (keyCode==DOWN){
-			snake2.moveDown();
-		}
-		else if (keyCode==LEFT){
-			snake2.moveLeft();
-		}
-		else if (keyCode==RIGHT){
-			snake2.moveRight();
-		}
-	//snake 1
+
 	} 
-	else if (key=='w'){
-		snake1.moveUp();
-	}
-	else if (key=='s'){
-		snake1.moveDown();
-	}
-	else if (key=='a'){
-		snake1.moveLeft();
-	}
-	else if (key=='d'){
-		snake1.moveRight();
-	}
+	else {
+		switch(key) {
+			case 'w' :
+			snake1.moveInput('u');
+			break;
+			case 's' :
+			snake1.moveInput('d');
+			break;
+			case 'a' :
+			snake1.moveInput('l');
+			break;
+			case 'd' :
+			snake1.moveInput('r');
+			break;
 
+			default:
+			break;
+					}
+	}
 
 
 }

@@ -6,19 +6,19 @@ class Snake{
 	color snakecolor;
 	int segmentsize;
 
-	Snake(int initialx, int initialy, color initialcolor, int initialsize, String initialdirection){ //CONSTRUCTOR
+	Snake(int initialx, int initialy, color initialcolor, int initialsize, String initialdirection, int grid[][]){ //CONSTRUCTOR
 
 		snakecolor = initialcolor;
 		segmentsize = initialsize;
-		head = new TailOrb(initialx, initialy, snakecolor, segmentsize, initialdirection); // adds the head to the snake
+		head = new TailOrb(initialx, initialy, snakecolor, segmentsize, initialdirection, grid); // adds the head to the snake
 		tailtip = head;
 
 		snakelength = 1;
 
-		addregular();
-		addregular();
-		addregular();
-		addregular();
+		addregular(grid);
+		addregular(grid);
+		addregular(grid);
+		addregular(grid);
 	
 	}
 
@@ -32,7 +32,7 @@ class Snake{
 
 
 	}
-	void addregular(){
+	void addregular(int grid[][]){
 		int newx = 0;
 		int newy = 0;
 
@@ -61,7 +61,7 @@ class Snake{
 		}
 
 
-		TailOrb regular = new TailOrb(newx, newy, color(snakecolor, 170), segmentsize, tailtip.direction);
+		TailOrb regular = new TailOrb(newx, newy, color(snakecolor, 170), segmentsize, tailtip.direction, grid);
 
 		regular.previous = tailtip;
 		tailtip.next = regular;
@@ -69,34 +69,29 @@ class Snake{
 
 		snakelength++; //MONITORS SNAKELENGTH FOR THE SCORE
 	}
-	// CHANGE DIRECTIONS
-	void moveUp() {
-		head.direction = "up";
 	
-	}
+    void moveInput(char dir) {
+        switch(dir) {
+        	case 'u' :
+        	    if (head.next.direction != "down") head.direction = "up"; //IF THE THInG IN THE PARENTHESES IS TRUE. DO THE THING OUTSIDE THE PARENTHETHESES.
+        	break;
+        	case 'd' :
+        		if (head.next.direction != "up") head.direction = "down";
+        	break;
+        	case 'l' :
+        		if (head.next.direction != "right") head.direction = "left";
+            break;
+        	case 'r' :
+        		if (head.next.direction != "left") head.direction = "right";
+            break;
+        }
+    }
 
-	void moveDown() {
-		head.direction = "down";
-	
-	}
-
-	void moveLeft() {
-		head.direction = "left";
-	
-	}
-
-	void moveRight() {
-		head.direction = "right";
-	
-	}
-
-
-
-	void move(){
+	void move(int grid[][]){
 		TailOrb t = tailtip; 
 		while(t != null) {
 			// do things to move this particular tailorb
-			t.move();
+			t.move(grid);
 			t = t.previous;
 		}
 	
