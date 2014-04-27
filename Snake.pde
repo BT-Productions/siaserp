@@ -29,15 +29,15 @@ class Snake{
 
 		if(tailtip.direction == "up"){
 			newx = tailtip.gridx;
-			newy = tailtip.gridy + segmentsize;
+			newy = tailtip.gridy + 1;
 		} else if (tailtip.direction == "down"){
 			newx = tailtip.gridx;
-			newy = tailtip.gridy - segmentsize;
+			newy = tailtip.gridy - 1;
 		} else if (tailtip.direction == "left"){
-			newx = tailtip.gridx + segmentsize;
+			newx = tailtip.gridx + 1;
 			newy = tailtip.gridy;
 		} else if (tailtip.direction == "right"){
-			newx = tailtip.gridx - segmentsize;
+			newx = tailtip.gridx - 1;
 			newy = tailtip.gridy;
 		}
 
