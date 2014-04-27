@@ -28,17 +28,17 @@ class Snake{
 		int newy = 0;
 
 		if(tailtip.direction == "up"){
-			newx = tailtip.xpos;
-			newy = tailtip.ypos + segmentsize;
+			newx = tailtip.gridx;
+			newy = tailtip.gridy + segmentsize;
 		} else if (tailtip.direction == "down"){
-			newx = tailtip.xpos;
-			newy = tailtip.ypos - segmentsize;
+			newx = tailtip.gridx;
+			newy = tailtip.gridy - segmentsize;
 		} else if (tailtip.direction == "left"){
-			newx = tailtip.xpos + segmentsize;
-			newy = tailtip.ypos;
+			newx = tailtip.gridx + segmentsize;
+			newy = tailtip.gridy;
 		} else if (tailtip.direction == "right"){
-			newx = tailtip.xpos - segmentsize;
-			newy = tailtip.ypos;
+			newx = tailtip.gridx - segmentsize;
+			newy = tailtip.gridy;
 		}
 
 		TailOrb regular = new TailOrb(newx, newy, color(snakecolor, 170), segmentsize, tailtip.direction, grid);
