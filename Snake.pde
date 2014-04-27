@@ -17,6 +17,8 @@ class Snake{
 
 		addregular();
 		addregular();
+		addregular();
+		addregular();
 	
 	}
 
@@ -91,11 +93,11 @@ class Snake{
 
 
 	void move(){
-		TailOrb t = head; 
+		TailOrb t = tailtip; 
 		while(t != null) {
 			// do things to move this particular tailorb
 			t.move();
-			t = t.next;
+			t = t.previous;
 		}
 	
 	}
