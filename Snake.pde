@@ -22,44 +22,24 @@ class Snake{
 	
 	}
 
-	void add(TailOrb new_tailorb_segment){
-
-		// attach the new node to the edn of the list
-		new_tailorb_segment.previous = tailtip;
-		tailtip.next = new_tailorb_segment;
-		tailtip = tailtip.next; //THE ORDER HERE IS RATHER IMPORTANT FOR THE ABOVE THREE LINES.
-		snakelength++;
-
-
-	}
 	void addregular(int grid[][]){
+
 		int newx = 0;
 		int newy = 0;
 
 		if(tailtip.direction == "up"){
 			newx = tailtip.xpos;
 			newy = tailtip.ypos + segmentsize;
-
-		}
-
-		else if (tailtip.direction == "down"){
+		} else if (tailtip.direction == "down"){
 			newx = tailtip.xpos;
 			newy = tailtip.ypos - segmentsize;
-
-		}
-
-		else if (tailtip.direction == "left"){
+		} else if (tailtip.direction == "left"){
 			newx = tailtip.xpos + segmentsize;
 			newy = tailtip.ypos;
-
-		}
-
-		else if (tailtip.direction == "right"){
+		} else if (tailtip.direction == "right"){
 			newx = tailtip.xpos - segmentsize;
 			newy = tailtip.ypos;
-
 		}
-
 
 		TailOrb regular = new TailOrb(newx, newy, color(snakecolor, 170), segmentsize, tailtip.direction, grid);
 
@@ -68,46 +48,49 @@ class Snake{
 		tailtip = tailtip.next; //THE ORDER HERE IS RATHER IMPORTANT FOR THE ABOVE THREE LINES.
 
 		snakelength++; //MONITORS SNAKELENGTH FOR THE SCORE
+
 	}
 	
     void moveInput(char dir) {
+
         switch(dir) {
         	case 'u' :
         	    if (head.next.direction != "down") head.direction = "up"; //IF THE THInG IN THE PARENTHESES IS TRUE. DO THE THING OUTSIDE THE PARENTHETHESES.
-        	break;
+        		break;
         	case 'd' :
         		if (head.next.direction != "up") head.direction = "down";
-        	break;
+        		break;
         	case 'l' :
         		if (head.next.direction != "right") head.direction = "left";
-            break;
+        	    break;
         	case 'r' :
         		if (head.next.direction != "left") head.direction = "right";
-            break;
+       		    break;
         }
+
     }
 
 	void move(int grid[][]){
-		TailOrb t = tailtip; 
+
+		TailOrb t = tailtip;
+
 		while(t != null) {
 			// do things to move this particular tailorb
 			t.move(grid);
 			t = t.previous;
 		}
-	
+
 	}
 	
-
 	void draw(){
-		TailOrb t = head; // STARTING OUT.
-		while(t != null) { // LOOKIN AT IT, IS THERE SOMEONE NEW?! (IS THERE SOMETHING THERE?)
 
+		TailOrb t = head; // STARTING OUT.
+
+		while(t != null) { // LOOKIN AT IT, IS THERE SOMEONE NEW?! (IS THERE SOMETHING THERE?)
 			t.draw(); // DRAWING IT
 			t = t.next; // NOW MOVING ON
-
-	
 		}
-	
+
 	}
 
 }

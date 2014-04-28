@@ -19,7 +19,6 @@ String elapsedTime = display_hours + ":" + display_minutes + ":" + display_secon
 
 String score = "";
 
-
 void setup(){
 
 	size(gridSize*tileSize,gridSize*tileSize);
@@ -45,12 +44,14 @@ void setup(){
 }
 
 void draw(){
+
 	background(20);
 
 	if (frameCount%60 == 0){ //every 60 frames, do this:
 		snake1.move(grid);
 		snake2.move(grid);
 	}
+
 	snake1.draw();
 	snake2.draw();
 
@@ -71,7 +72,6 @@ void draw(){
 
     score = "" + sec/2; // <-- THIS converts ints to strings. Showing a point every two seconds (.5 of a point every second).
 
-
     text(score, width/2, height/4-12);
 
     for (int i = 0; i < gridSize; i++){
@@ -80,50 +80,47 @@ void draw(){
 
 		}
 	}
+
 }
 
 void keyPressed(){
+
 	//snake 2
 	if (key==CODED){
 		switch(keyCode) {
 			case UP :
-			snake2.moveInput('u');
-			break;
+				snake2.moveInput('u');
+				break;
 			case DOWN :
-			snake2.moveInput('d');
-			break;
+				snake2.moveInput('d');
+				break;
 			case LEFT :
-			snake2.moveInput('l');
-			break;
+				snake2.moveInput('l');
+				break;
 			case RIGHT :
-			snake2.moveInput('r');
-			break;
-
+				snake2.moveInput('r');
+				break;
 			default :
-			break;
-
+				break;
 		}
-
-	} 
-	else {
+	} else {
+		//snake 1
 		switch(key) {
 			case 'w' :
-			snake1.moveInput('u');
-			break;
+				snake1.moveInput('u');
+				break;
 			case 's' :
-			snake1.moveInput('d');
-			break;
+				snake1.moveInput('d');
+				break;
 			case 'a' :
-			snake1.moveInput('l');
-			break;
+				snake1.moveInput('l');
+				break;
 			case 'd' :
-			snake1.moveInput('r');
-			break;
-
+				snake1.moveInput('r');
+				break;
 			default:
-			break;
-					}
+				break;
+		}
 	}
-
 
 }
