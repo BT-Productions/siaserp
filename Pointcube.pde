@@ -1,7 +1,7 @@
-class Pointcube{
+ class Pointcube{
 
 	color cubecolor;
-	int gridx
+	int gridx;
 	int gridy;
 	int cubesize;
 	int pointvalue;
@@ -44,4 +44,15 @@ class Pointcube{
 		}	
 			
 	}
+
+	void draw(){
+
+		ellipseMode(CENTER);
+		fill(cubecolor);
+		noStroke();
+		int xpos = gridx*cubesize + cubesize/2; // CONVERTS THESE FOR THE RECT MODE XPOS/YPOS TO FIND THE CENTER OF THE TAILORB
+		int ypos = gridy*cubesize + cubesize/2;
+		ellipse(xpos,ypos,cubesize,cubesize);
+	}
 }
+

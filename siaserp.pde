@@ -29,6 +29,7 @@ void setup(){
 			grid[i][j] = 0;
 		}
 	}
+	
 
 	int s1xpos = grid.length/4;
 	int s2xpos = 3*grid.length/4;
@@ -72,13 +73,14 @@ void draw(){
 
     text(score, width/2, height/4-12);
 
-    for (int i = 0; i < gridSize; i++){
+    for (int i = 0; i < gridSize; i++){  //THIS RUNS THROUGH THE GRID TO CHECK IF THINGS ARE THERE
 		for (int j = 0; j < gridSize; j++){
 			if (grid[i][j] > 1) println("SUPERDEAD");
 
 		}
 	}
 
+	Pointcube testcube = new Pointcube(tileSize, grid);
 }
 
 void keyPressed(){
